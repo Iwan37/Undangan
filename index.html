@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan</title>
+    <style>
+        /* Gaya dasar untuk tampilan undangan */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            background-image: url('your-background-image.jpg'); /* Ganti dengan gambar background yang diinginkan */
+            background-size: cover;
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        .guest-name {
+            font-size: 2em;
+            color: #e74c3c;
+            margin: 20px 0;
+            opacity: 0;
+            animation: fadeIn 3s forwards;
+        }
+
+        .event-details {
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 4s forwards;
+        }
+
+        /* Styling untuk gambar */
+        .event-photo {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 5s forwards;
+        }
+
+        /* Countdown timer styling */
+        .countdown {
+            font-size: 1.5em;
+            color: #2980b9;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 6s forwards;
+        }
+
+        /* Audio Player styling */
+        .audio-player {
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 7s forwards;
+        }
+
+        /* Animasi Fade-in */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Undangan Pernikahan</h1>
+    <p class="guest-name">Kepada: <span id="guestName">Meong</span></p>
+
+    <div class="event-details">
+        <p>Dengan senang hati kami mengundang Anda untuk hadir di acara pernikahan kami.</p>
+        <p>Tanggal: 20 Oktober 2024</p>
+        <p>Lokasi: Gedung Serbaguna</p>
+    </div>
+
+    <!-- Menambahkan gambar acara -->
+    <img src="your-photo.jpg" alt="Foto Acara" class="event-photo"> <!-- Ganti dengan gambar acara -->
+
+    <div class="countdown">
+        Waktu tersisa: <span id="countdown"></span>
+    </div>
+
+    <!-- Menambahkan pemutar audio -->
+    <div class="audio-player">
+        <audio controls autoplay>
+            <source src="your-music.mp3" type="audio/mpeg"> <!-- Ganti dengan file audio -->
+            Browser Anda tidak mendukung elemen audio.
+        </audio>
+    </div>
+</div>
+
+<script>
+    // Mendapatkan parameter 'to' dari URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('to');
+
+    // Menampilkan nama tamu di halaman
+    if (guestName) {
+        document.getElementById('guestName').textContent = guestName;
+    }
+
+    // Countdown Timer
+    const eventDate = new Date('2024-10-20T00:00:00').getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = eventDate - now;
+
+        // Menghitung hari, jam, menit, dan detik
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Menampilkan countdown
+        document.getElementById('countdown').textContent = `${days} Hari ${hours} Jam ${minutes} Menit ${seconds} Detik`;
+
+        // Jika waktu telah habis
+        if (distance < 0) {
+            document.getElementById('countdown').textContent = "Acara telah berlangsung";
+        }
+    }
+
+    // Update countdown setiap 1 detik
+    setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
